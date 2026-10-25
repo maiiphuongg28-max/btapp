@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Photo Gallery - Mai Phương</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        /* Khung hiển thị chính (id="image") */
+        #image {
+            width: 600px;
+            height: 350px;
+            border: 5px solid #2c3e50;
+            background-color: #bdc3c7;
+            background-image: url('');
+            background-size: cover;
+            background-position: center;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        /* Khu vực chứa các ảnh nhỏ */
+        .gallery {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            cursor: pointer;
+            border-radius: 6px;
+            border: 2px solid transparent;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+            border-color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Thư Viện Ảnh Tương Tác</h1>
+
+    <!-- Phần tử hiển thị hình nền và văn bản theo yêu cầu -->
+    <div id="image">
+        Di chuột qua một hình ảnh bên dưới để hiển thị ở đây.
+    </div>
+
+    <!-- Khu vực các ảnh nhỏ để người dùng di chuột vào -->
+    <div class="gallery">
+        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80" alt="Máy ảnh cổ điển trên bàn làm việc" onmouseover="upDate(this)" onmouseout="undo()">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80" alt="Chân dung tối giản ánh sáng tự nhiên" onmouseover="upDate(this)" onmouseout="undo()">
+        <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80" alt="Góc làm việc sáng tạo với thiết bị số" onmouseover="upDate(this)" onmouseout="undo()">
+    </div>
+
+    <script>
+        // 3. Hàm upDate kích hoạt khi di chuột lên ảnh
+        function upDate(previewPic) {
+            console.log("Sự kiện mouseover đã kích hoạt!"); // 3.1 Kiểm tra sự kiện
+            console.log("Alt text: " + previewPic.alt);       // 3.2 In thông tin alt
+            console.log("Image source: " + previewPic.src);   // 3.2 In thông tin source
+
+            let displayBox = document.getElementById("image");
+
+            // 3.3 Thay đổi văn bản của phần tử có id="image" thành thuộc tính alt của ảnh
+            displayBox.innerHTML = previewPic.alt;
+
+            // 3.5 Thay đổi hình nền của phần tử có id="image" thành nguồn của ảnh đang hover
+            displayBox.style.backgroundImage = "url('" + previewPic.src + "')";
+        }
+
+        // 4. Hàm undo kích hoạt khi chuột rời khỏi ảnh
+        function undo() {
+            let displayBox = document.getElementById("image");
+
+            // 4.1 Cập nhật lại URL hình nền về giá trị rỗng ban đầu
+            displayBox.style.backgroundImage = "url('')";
+
+            // 4.2 Cập nhật lại văn bản gốc ban đầu
+            displayBox.innerHTML = "Di chuột qua một hình ảnh bên dưới để hiển thị ở đây.";
+        }
+    </script>
+
+</body>
+</html>
